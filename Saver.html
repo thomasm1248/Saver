@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Saver</title>
+	<style>
+
+#text {
+	width: 600px;
+	height: 550px;
+	outline: none;
+	resize: none;
+	border: 1px solid lightgrey;
+	font-family: "Arial";
+	font-size: 15px;
+	margin: 20px 0 0 300px;
+	line-height: 20px;
+}
+
+	</style>
+</head>
+<body>
+	<textarea id="text"></textarea>
+	<script>
+
+var text = document.getElementById("text");
+text.focus();
+var storage = window.localStorage;
+
+window.addEventListener("keydown", function(e) {
+	if(!e.ctrlKey) return;
+	switch(e.keyCode) {
+		case 83:
+			var saveName = prompt("Save As");
+			if(saveName !== "") {
+				storage.setItem(saveName, text.value);
+			}
+			e.preventDefault();
+			break;
+		case 79:
+			var saveName = prompt("Open");
+			if(saveName !== "") {
+				text.value = storage.getItem(saveName);
+			}
+			e.preventDefault();
+			break;
+		case 68:
+			var saveName = prompt("Delete Save");
+			if(saveName !== "") {
+				storage.setItem(saveName, "");
+			}
+			e.preventDefault();
+			break;
+		case 67:
+			text.value = ""
+			e.preventDefault();
+			break;
+	}
+}, false);
+
+	</script>
+</body>
+</html>
